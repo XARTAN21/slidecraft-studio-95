@@ -8,8 +8,27 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --background: 222 47% 6%;
+    --foreground: 210 40% 98%;
+
+    --surface: 222 40% 9%;
+    --surface-elevated: 220 35% 13%;
+
+    --brand: 175 85% 50%;
+    --brand-foreground: 222 47% 6%;
+    --brand-glow: 175 90% 60%;
+
+    --accent-warm: 28 100% 62%;
+    --accent-danger: 0 78% 62%;
+    --accent-success: 152 68% 50%;
+
+    --gradient-hero: radial-gradient(ellipse at top, hsl(175 85% 50% / 0.18), transparent 60%), linear-gradient(180deg, hsl(222 47% 6%), hsl(225 50% 4%));
+    --gradient-brand: linear-gradient(135deg, hsl(175 85% 50%), hsl(195 90% 55%));
+    --gradient-card: linear-gradient(160deg, hsl(220 35% 13% / 0.9), hsl(222 40% 9% / 0.7));
+    --shadow-glow: 0 20px 60px -20px hsl(175 85% 50% / 0.45);
+    --shadow-card: 0 10px 40px -10px hsl(0 0% 0% / 0.5);
+
+    --foreground-old: 222.2 84% 4.9%;
 
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
@@ -99,7 +118,57 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    background: var(--gradient-hero);
+    background-attachment: fixed;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    letter-spacing: -0.02em;
   }
 }
+
+@layer components {
+  .slide {
+    @apply relative min-h-screen w-full flex items-center justify-center px-6 md:px-16 py-24;
+  }
+  .slide-inner {
+    @apply max-w-6xl w-full mx-auto;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono uppercase tracking-widest text-[hsl(var(--brand))] border border-[hsl(var(--brand)/0.3)] bg-[hsl(var(--brand)/0.08)];
+  }
+  .glass {
+    background: var(--gradient-card);
+    @apply border border-white/5 backdrop-blur-sm rounded-2xl;
+    box-shadow: var(--shadow-card);
+  }
+  .text-gradient {
+    background: var(--gradient-brand);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+@layer utilities {
+  .glow {
+    box-shadow: var(--shadow-glow);
+  }
+  .grid-bg {
+    background-image:
+      linear-gradient(hsl(var(--foreground)/0.04) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(var(--foreground)/0.04) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
